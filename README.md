@@ -1,0 +1,5 @@
+# Refleksi 1
+
+Dalam mengerjakan tutorial dan exercise yang diberikan, saya kembali diingatkan untuk menerapkan prinsip _clean coding_ dalam pelaksanaan _programming_. Sewaktu implementasi List, Create, Delete, kemudian Edit, saya memberikan **Meaningful Names** dalam penamaan variabel dan _method_ yang sesuai dengan semantik dan _self explanatory_. Selanjutnya, saya juga memanfaatkan library Lombok untuk menjaga model tetap bersih dan tidak dipenuhi method getter setter saja. Saya pun menerapkan UUID untuk Id product, memastikan Id Product tidak mudah ditebak oleh _unauthorized user_.
+
+Meski dalam pengerjaan ini tidak ditemukan banyak masalah atau kesulitan, saya yakin pengerjaan ini dapat di-_improve_ menjadi lebih baik, seperti menambahkan autentikasi & otorisasi, validasi input, dan _handle edge case_ lainnya.
