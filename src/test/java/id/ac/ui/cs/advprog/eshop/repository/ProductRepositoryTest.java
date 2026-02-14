@@ -65,4 +65,65 @@ class ProductRepositoryTest {
         assertEquals(product2.getProductId(), savedProduct.getProductId());
         assertFalse(productIterator.hasNext());
     }
+
+    @Test
+    void testDeleteProductSuccess() {
+        Product product = new Product();
+        product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        productRepository.create(product);
+
+        productRepository.delete("eb558e9f-1c39-460e-8860-71af6af63bd6");
+
+        Product result = productRepository.findById("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        assertNull(result);
+    }
+
+    @Test
+    void testDeleteProductFail() {
+        productRepository.delete("random-id");
+
+        Iterator<Product> productIterator = productRepository.findAll();
+        assertFalse(productIterator.hasNext());
+    }
+
+    @Test
+    void testUpdateProductSuccess() {
+        Product product = new Product();
+        product.setProductId("eb558e9f-1c39-4600-8860-71af6af63bd6");
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(100);
+        productRepository.create(product);
+
+        Product updatedProduct = new Product();
+        updatedProduct.setProductId("eb558e9f-1c39-4600-8860-71af6af63bd6");
+        updatedProduct.setProductName("Sampo Cap Bambang Baru");
+        updatedProduct.setProductQuantity(200);
+        productRepository.update(updatedProduct);
+
+        Product result = productRepository.findById(updatedProduct.getProductId());
+        assertNotNull(result);
+        assertEquals("Sampo Cap Bambang Baru", result.getProductName());
+        assertEquals(200, result.getProductQuantity());
+
+        Product savedProduct = productRepository.findById("eb558e9f-1c39-4600-8860-71af6af63bd6");
+        assertEquals("Sampo Cap Bambang Baru", savedProduct.getProductName());
+    }
+
+    @Test
+    void testUpdateProductFail() {
+        Product product = new Product();
+        product.setProductId("id-asli");
+        product.setProductName("Louis Vuitton");
+        product.setProductQuantity(10);
+        productRepository.create(product);
+
+        Product nonExistentProduct = new Product();
+        nonExistentProduct.setProductId("id-salah");
+        nonExistentProduct.setProductName("Luois Viutton");
+        nonExistentProduct.setProductQuantity(10);
+
+        Product result = productRepository.update(nonExistentProduct);
+
+        assertNull(result);
+    }
 }
